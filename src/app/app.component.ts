@@ -1,0 +1,38 @@
+import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from './services/tokenStorage/token-storage.service';
+import {Router} from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = 'MonitorSensor';
+  private roles: string[];
+  authority: string;
+
+  constructor(private tokenStorage: TokenStorageService, private route: Router) {
+  }
+
+  // tslint:disable-next-line:typedef
+  ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.roles = this.tokenStorage.getAuthorities();
+      this.roles.every(role => {
+        if (role === 'ADMINISTRATOR') {
+          this.authority = 'admin';
+          return true;
+        }
+        this.authority = 'viewer';
+        return true;
+      });
+    }
+  }
+
+  signOut() {
+    this.tokenStorage.signOut();
+    this.authority = null;
+    this.route.navigate(['']);
+  }
+}

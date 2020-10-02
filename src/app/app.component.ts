@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from './services/tokenStorage/token-storage.service';
 import {Router} from '@angular/router';
+import {LoginInfoService} from './services/loginInfo/login-info.service';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,9 @@ export class AppComponent implements OnInit {
   private roles: string[];
   authority: string;
 
-  constructor(private tokenStorage: TokenStorageService, private route: Router) {
+  constructor(private tokenStorage: TokenStorageService, private loginInfoService: LoginInfoService, private route: Router) {
   }
 
-  // tslint:disable-next-line:typedef
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.roles = this.tokenStorage.getAuthorities();
@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
   signOut() {
     this.tokenStorage.signOut();
     this.authority = null;
-    this.route.navigate(['']);
+    this.loginInfoService.isLoggedIn = false;
+    this.route.navigate(['login']);
   }
 }

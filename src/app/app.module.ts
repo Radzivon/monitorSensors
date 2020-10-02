@@ -7,10 +7,12 @@ import {SensorListComponent} from './components/sensor-list/sensor-list.componen
 import {LoginComponent} from './components/login/login.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found/page-not-found.component';
 import {AppRoutingModule} from './app-routing.module';
+import {httpInterceptorProviders} from './interceptor/auth-interceptor.interceptor';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import {AppRoutingModule} from './app-routing.module';
     PageNotFoundComponent,
   ],
   imports: [
+    FontAwesomeModule,
     RouterModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {

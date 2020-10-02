@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './components/login/login.component';
-import {PageNotFoundComponent} from './components/page-not-found/page-not-found/page-not-found.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {SensorListComponent} from './components/sensor-list/sensor-list.component';
 import {SensorEditComponent} from './components/sensor-edit/sensor-edit.component';
@@ -20,11 +19,11 @@ const routes: Routes = [
     component: SensorListComponent
   },
   {
-    path: 'sensor/{:id}',
+    path: 'sensor/new',
     component: SensorEditComponent
   },
   {
-    path: 'sensor/new',
+    path: 'sensor/:id',
     component: SensorEditComponent
   },
   {

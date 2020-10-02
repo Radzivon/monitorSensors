@@ -1,1 +1,43 @@
-<p>sensor-edit works!</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          Add/Edit
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form" novalidate>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-4">
+                  <label for="location">Location</label>
+                </div>
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" id="location" name="location" formControlName="location"
+                         required/>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="row justify-content-center">
+            <div class="col-2">
+              <div *ngIf="getLocationControl().invalid; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock class="btn-class">
+                <button class="btn btn-primary" disabled>Save</button>
+              </ng-template>
+              <ng-template #elseBlock>
+                <button routerLinkActive="sensors" class="btn btn-outline-secondary my-2 my-sm-0" type="button"
+                        (click)="saveSensor()">Save
+                </button>
+              </ng-template>
+            </div>
+            <div class="col-2">
+              <button routerLinkActive="sensors" class="btn btn-outline-secondary my-2 my-sm-0" type="button">Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

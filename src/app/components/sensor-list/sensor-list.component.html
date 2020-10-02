@@ -1,1 +1,65 @@
-<p>sensor-list works!</p>
+<div *ngIf="sensors.length === 0; else cargoList">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <h4>Oooops! Sensor list is empty</h4>
+    </div>
+  </div>
+</div>
+<ng-template #cargoList>
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th></th>
+          <th scope="col">Name</th>
+          <th scope="col">Model</th>
+          <th scope="col">Type</th>
+          <th scope="col">Range</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Location</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let sensor of sensors">
+          <td style="border:none">
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="button"
+                    (click)="redirectToPageEditSensor(sensor.id)">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+          </td>
+          <td><a href="#" data-toggle="tooltip" title="{{ sensor.description }}">  {{ sensor.name }}</a>
+          </td>
+          <td>{{ sensor.model}}</td>
+          <td>{{ sensor.type.value}}</td>
+          <td>{{ sensor.rangeFrom}}-{{ sensor.rangeTo}}</td>
+          <td>{{ sensor.unit.value}}</td>
+          <td>{{ sensor.location}}</td>
+          <td style="border:none">
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="button">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <ul class="nav nav-pills">
+        <li class="nav-item" *ngFor="let p of pages; let i=index">
+          <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" href="#"
+                  (click)="setPageNumber(i,$event)"
+                  [ngClass]="{'active':i==pageNumber}">{{i + 1}}</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+<div class="container">
+  <div class="row justify-content-between">
+    <div class="col-4">
+      <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" (click)="redirectToPageNewSensor()">
+        Add Sensor
+      </button>
+    </div>
+  </div>
+</div>

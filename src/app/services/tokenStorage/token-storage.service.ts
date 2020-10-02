@@ -13,12 +13,12 @@ export class TokenStorageService {
   constructor() {
   }
 
-// tslint:disable-next-line:typedef
+
   signOut() {
     window.sessionStorage.clear();
   }
 
-// tslint:disable-next-line:typedef
+
   public saveToken(token: string) {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
@@ -28,7 +28,7 @@ export class TokenStorageService {
     return sessionStorage.getItem(TOKEN_KEY);
   }
 
-  // tslint:disable-next-line:typedef
+
   public saveUsername(username: string) {
     window.sessionStorage.removeItem(USERNAME_KEY);
     window.sessionStorage.setItem(USERNAME_KEY, username);
@@ -38,7 +38,7 @@ export class TokenStorageService {
     return sessionStorage.getItem(USERNAME_KEY);
   }
 
-// tslint:disable-next-line:typedef
+
   public saveAuthorities(authorities: string[]) {
     window.sessionStorage.removeItem(AUTHORITIES_KEY);
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
@@ -52,7 +52,6 @@ export class TokenStorageService {
         this.roles.push(authority.authority);
       });
     }
-
     return this.roles;
   }
 }

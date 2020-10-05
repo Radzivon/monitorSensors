@@ -14,6 +14,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {httpInterceptorProviders} from './interceptor/auth-interceptor.interceptor';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
+
 @NgModule({
   declarations: [
     AppComponent,

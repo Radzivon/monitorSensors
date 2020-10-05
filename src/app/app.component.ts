@@ -36,4 +36,9 @@ export class AppComponent implements OnInit {
     this.loginInfoService.isLoggedIn = false;
     this.route.navigate(['login']);
   }
+
+  redirectToLogin() {
+    this.route.navigate(['login']);
+  }
 }
+

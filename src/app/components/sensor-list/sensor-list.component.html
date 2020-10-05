@@ -29,7 +29,8 @@
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
           </td>
-          <td><a href="#" data-toggle="tooltip" title="{{ sensor.description }}">  {{ sensor.name }}</a>
+          <td>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" data-toggle="tooltip" title="{{ sensor.description }}">  {{ sensor.name }}</button>
           </td>
           <td>{{ sensor.model}}</td>
           <td>{{ sensor.type.value}}</td>

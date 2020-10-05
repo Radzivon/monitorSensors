@@ -1,21 +1,26 @@
 <body class="text-center">
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand" routerLink="login">Monitor Sensor</a>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="nav navbar-nav" routerLinkActive="active">
-        <li *ngIf="!authority" class="nav-item">
-          <a class="nav-link" routerLink="/signup">
-            Sign up
-          </a>
-        </li>
-        <li *ngIf="authority" class="nav-item">
-          <a class="nav-link" (click)="signOut()" routerLink="">
-             Sign out
-          </a>
-        </li>
-      </ul>
-    </div>
-  <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" (click)="signOut()">Sign Out</button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="nav navbar-nav" routerLinkActive="active">
+      <li *ngIf="!authority" class="nav-item">
+        <a class="nav-link" routerLink="/signup">
+          Sign up
+        </a>
+      </li>
+      <li *ngIf="authority" class="nav-item">
+        <a class="nav-link" (click)="signOut()" routerLink="">
+          Sign out
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="authority !== null">
+    <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" (click)="signOut()">Sign Out</button>
+  </div>
+  <div *ngIf="authority === null">
+    <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" (click)="redirectToLogin()">Login</button>
+  </div>
 </nav>
 <router-outlet></router-outlet>
 </body>

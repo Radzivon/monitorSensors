@@ -7,6 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {Location} from '@angular/common';
 import {SensorTypeService} from '../../services/sensor-type/sensor-type.service';
+import {Type} from '../../model/type/type';
+import {Unit} from '../../model/unit/unit';
 
 @Component({
   selector: 'app-sensor-edit',
@@ -18,35 +20,42 @@ export class SensorEditComponent implements OnInit {
   errorMessage: string;
   id: number;
   sensor: Sensor;
+  types: Array<Type> = new Array<Type>();
+  units: Array<Unit> = new Array<Unit>();
   private routeSubscription: Subscription;
+  selectedTypeValue: Type;
+  selectedUnitValue: Unit;
 
   constructor(private sensorService: SensorService, private sensorTypeService: SensorTypeService, private formBuilder: FormBuilder,
               private route: ActivatedRoute, private router: Router, private location: Location) {
     this.routeSubscription = route.params.subscribe(params => this.id = params['id']);
     this.form = this.formBuilder.group({
-      name: new FormControl('', [Validators.required, Validators.minLength(1)]),
-      model: new FormControl(0, [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
+      name: new FormControl('Name', [Validators.required, Validators.minLength(1)]),
+      model: new FormControl('Model', [Validators.required, Validators.minLength(1)]),
       rangeFrom: new FormControl(0, [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
-      rangeTO: new FormControl('', [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
-      unit: new FormControl('', [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
-      type: new FormControl('', [Validators.required, Validators.pattern(/^[A-ZА-Я]{1}[a-zа-яё]+$/)]),
-      location: new FormControl(0, [Validators.pattern(/^[0-9]+$/)]),
-      description: new FormControl('', [Validators.pattern(/^[A-ZА-Я]{1}[a-zа-яё]+$/)]),
+      rangeTo: new FormControl(0, [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
+      unit: new FormControl('', [Validators.required]),
+      type: new FormControl('', [Validators.required]),
+      location: new FormControl('Location', [Validators.required, Validators.minLength(1)]),
+      description: new FormControl('Description', [Validators.required, Validators.minLength(1)]),
     });
 
     this.routeSubscription = route.params.subscribe(params => this.id = params['id']);
-
   }
 
   ngOnInit(): void {
-    this.sensorTypeService.getSensorTypesAll().subscribe(data => {
-
-    });
+    this.getSensorTypes();
     if (this.id != undefined) {
       this.getSensor();
     }
+  }
 
+  selectTypeSensor(temp: Type) {
+    this.units = temp.units;
+  }
 
+  onChange($event) {
+    this.units = this.selectedTypeValue.units;
   }
 
   setControlValues() {
@@ -80,6 +89,12 @@ export class SensorEditComponent implements OnInit {
     updatedSensor.description = this.getDescriptionControl().value;
     this.sensorService.updateSensor(updatedSensor).subscribe();
     this.goBack();
+  }
+
+  getSensorTypes() {
+    this.sensorTypeService.getSensorTypesAll().subscribe(data => {
+      this.types = JSON.parse(data);
+    });
   }
 
   goBack() {

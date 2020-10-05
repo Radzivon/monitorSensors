@@ -1,0 +1,9 @@
+.card{
+  width: 190%;
+}
+select {
+  width: 150px; /* Ширина списка в пикселах */
+}
+.red-span{
+  color: red;
+}

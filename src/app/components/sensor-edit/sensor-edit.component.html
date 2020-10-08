@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-lg-4">
+  <div class="row">
+    <div class="col-4">
       <div class="card">
         <div class="card-header">
           Add/Edit
@@ -13,7 +13,8 @@
                   <label for="name">Name<span class="red-span">*</span></label>
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" id="name" name="name" formControlName="name"/>
+                  <input type="text" placeholder="Name" class="form-control" id="name" name="name"
+                         formControlName="name"/>
                 </div>
               </div>
             </div>
@@ -23,7 +24,7 @@
                   <label for="model">Model<span class="red-span">*</span></label>
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" id="model" formControlName="model"/>
+                  <input type="text" placeholder="Model" class="form-control" id="model" formControlName="model"/>
                 </div>
               </div>
             </div>
@@ -36,13 +37,14 @@
                   <label for="rangeFrom">From</label>
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" id="rangeFrom" formControlName="rangeFrom"/>
+                  <input type="text" placeholder="From" class="form-control" id="rangeFrom"
+                         formControlName="rangeFrom"/>
                 </div>
                 <div class="col-2">
                   <label for="rangeTo">To</label>
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" id="rangeTo" formControlName="rangeTo"/>
+                  <input type="text" placeholder="To" class="form-control" id="rangeTo" formControlName="rangeTo"/>
                 </div>
               </div>
             </div>
@@ -52,7 +54,8 @@
                   <label for="type">Type<span class="red-span">*</span></label>
                 </div>
                 <div class="col">
-                  <select formControlName="type" [(ngModel)]="selectedTypeValue" (change)="onChange($event)">
+                  <select formControlName="type" placeholder="Type" [(ngModel)]="selectedTypeValue"
+                          (change)="onChange($event)">
                     <option *ngFor="let t of types" [ngValue]="t"
                             id="type">{{t.value}}</option>
                   </select>
@@ -66,11 +69,11 @@
                 </div>
                 <div class="col">
                   <div *ngIf="units.length !== 0; else unitsIsEmpty">
-                    <select formControlName="unit">
+                    <select placeholder="Unit" formControlName="unit">
                       <option *ngFor="let u of units" id="unit" [ngValue]="u">{{u.value}}</option>
                     </select>
                   </div>
-                  <ng-template #unitsIsEmpty><select disabled>
+                  <ng-template #unitsIsEmpty><select placeholder="Unit" disabled>
                   </select></ng-template>
                 </div>
               </div>
@@ -81,7 +84,8 @@
                   <label for="location">Location</label>
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" id="location" formControlName="location"/>
+                  <input type="text" placeholder="Location" class="form-control" id="location"
+                         formControlName="location"/>
                 </div>
               </div>
             </div>
@@ -91,7 +95,8 @@
                   <label for="description">Description</label>
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" id="description" formControlName="description"/>
+                    <textArea placeholder="Description" id="description" rows="6" cols="40"
+                              formControlName="description"></textArea>
                 </div>
               </div>
             </div>

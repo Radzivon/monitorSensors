@@ -30,14 +30,14 @@ export class SensorEditComponent implements OnInit {
               private route: ActivatedRoute, private router: Router, private location: Location) {
     this.routeSubscription = route.params.subscribe(params => this.id = params['id']);
     this.form = this.formBuilder.group({
-      name: new FormControl('Name', [Validators.required, Validators.minLength(1)]),
-      model: new FormControl('Model', [Validators.required, Validators.minLength(1)]),
-      rangeFrom: new FormControl(0, [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
-      rangeTo: new FormControl(0, [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
+      name: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      model: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      rangeFrom: new FormControl('', [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
+      rangeTo: new FormControl('', [Validators.required, Validators.pattern(/^[1-9][0-9]*$/)]),
       unit: new FormControl('', [Validators.required]),
       type: new FormControl('', [Validators.required]),
-      location: new FormControl('Location', [Validators.required, Validators.minLength(1)]),
-      description: new FormControl('Description', [Validators.required, Validators.minLength(1)]),
+      location: new FormControl('', [Validators.minLength(1)]),
+      description: new FormControl('', [Validators.minLength(1)]),
     });
 
     this.routeSubscription = route.params.subscribe(params => this.id = params['id']);
@@ -78,17 +78,29 @@ export class SensorEditComponent implements OnInit {
 
   saveSensor() {
     const updatedSensor = new Sensor();
+    if (this.getRangeFromControl().value > this.getRangeToControl().value) {
+      this.errorMessage = 'Incorrect range values';
+      return;
+    }
     updatedSensor.id = this.id;
     updatedSensor.name = this.getNameControl().value;
     updatedSensor.rangeFrom = this.getRangeFromControl().value;
     updatedSensor.rangeTo = this.getRangeToControl().value;
     updatedSensor.unit = this.getUnitControl().value;
     updatedSensor.model = this.getModelControl().value;
-    updatedSensor.type = this.getTypeControl().value;
+    let type = new Type();
+    type.id = this.getTypeControl().value.id;
+    type.value = this.getTypeControl().value.value;
+    updatedSensor.type = type;
     updatedSensor.location = this.getLocationControl().value;
     updatedSensor.description = this.getDescriptionControl().value;
-    this.sensorService.updateSensor(updatedSensor).subscribe();
-    this.goBack();
+    if (this.id === undefined) {
+      this.sensorService.saveSensor(updatedSensor).subscribe();
+    } else {
+      this.sensorService.updateSensor(updatedSensor).subscribe();
+    }
+    console.log(updatedSensor);
+    this.redirectToSensors();
   }
 
   getSensorTypes() {
@@ -137,5 +149,9 @@ export class SensorEditComponent implements OnInit {
     return this.getNameControl().invalid || this.getLocationControl().invalid || this.getRangeFromControl().invalid
       || this.getUnitControl().invalid || this.getModelControl().invalid
       || this.getDescriptionControl().invalid || this.getTypeControl().invalid;
+  }
+
+  redirectToSensors() {
+    this.router.navigate(['sensors']);
   }
 }

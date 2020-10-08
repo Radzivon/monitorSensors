@@ -2,8 +2,11 @@
   width: 190%;
 }
 select {
-  width: 150px; /* Ширина списка в пикселах */
+  width: 100px;
 }
 .red-span{
   color: red;
+}
+.container{
+  margin-top: 3%;
 }

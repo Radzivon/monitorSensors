@@ -40,6 +40,6 @@ export class SensorService {
   }
 
   saveSensor(sensor: Sensor) {
-    return this.http.post(this.baseUrl + this.sensorSaveUrl, JSON.stringify(sensor), httpOptions).subscribe();
+    return this.http.post(this.baseUrl + this.sensorSaveUrl, JSON.stringify(sensor), httpOptions);
   }
 }

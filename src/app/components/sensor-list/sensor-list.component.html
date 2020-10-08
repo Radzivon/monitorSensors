@@ -6,52 +6,57 @@
   </div>
 </div>
 <ng-template #cargoList>
-  <div class="container">
-    <div class="row justify-content-md-center">
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th></th>
-          <th scope="col">Name</th>
-          <th scope="col">Model</th>
-          <th scope="col">Type</th>
-          <th scope="col">Range</th>
-          <th scope="col">Unit</th>
-          <th scope="col">Location</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let sensor of sensors">
-          <td style="border:none">
-            <button class="btn btn-outline-secondary my-2 my-sm-0" type="button"
-                    (click)="redirectToPageEditSensor(sensor.id)">
-              <fa-icon [icon]="faEdit"></fa-icon>
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-outline-secondary my-2 my-sm-0" data-toggle="tooltip" title="{{ sensor.description }}">  {{ sensor.name }}</button>
-          </td>
-          <td>{{ sensor.model}}</td>
-          <td>{{ sensor.type.value}}</td>
-          <td>{{ sensor.rangeFrom}}-{{ sensor.rangeTo}}</td>
-          <td>{{ sensor.unit.value}}</td>
-          <td>{{ sensor.location}}</td>
-          <td style="border:none">
-            <button class="btn btn-outline-secondary my-2 my-sm-0" type="button">
-              <fa-icon [icon]="faTimes"></fa-icon>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <ul class="nav nav-pills">
-        <li class="nav-item" *ngFor="let p of pages; let i=index">
-          <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" href="#"
-                  (click)="setPageNumber(i,$event)"
-                  [ngClass]="{'active':i==pageNumber}">{{i + 1}}</button>
-        </li>
-      </ul>
+  <div class="table-sensors">
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th></th>
+            <th scope="col">Name</th>
+            <th scope="col">Model</th>
+            <th scope="col">Type</th>
+            <th scope="col">Range</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Location</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let sensor of sensors">
+            <td style="border:none">
+              <button class="btn btn-outline-secondary my-2 my-sm-0" type="button"
+                      (click)="redirectToPageEditSensor(sensor.id)">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-outline-secondary my-2 my-sm-0" data-toggle="tooltip"
+                      title="{{ sensor.description }}">  {{ sensor.name }}</button>
+            </td>
+            <td>{{ sensor.model}}</td>
+            <td>{{ sensor.type.value}}</td>
+            <td>{{ sensor.rangeFrom}}-{{ sensor.rangeTo}}</td>
+            <td>{{ sensor.unit.value}}</td>
+            <td>{{ sensor.location}}</td>
+            <td style="border:none">
+              <button class="btn btn-outline-secondary my-2 my-sm-0" type="button">
+                <fa-icon [icon]="faTimes"></fa-icon>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="paging-nav">
+          <ul class="nav nav-pills">
+            <li class="nav-item" *ngFor="let p of pages; let i=index">
+              <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" href="#"
+                      (click)="setPageNumber(i,$event)"
+                      [ngClass]="{'active':i==pageNumber}">{{i + 1}}</button>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </ng-template>
